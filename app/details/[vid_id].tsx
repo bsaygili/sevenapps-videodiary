@@ -39,8 +39,8 @@ export default function DetailScreen() {
             <View className="flex-1 items-center justify-center">
                 <CstmPressable className="p-4 rounded-xl"
                     onPress={() => router.push({
-                        pathname: `/edit`,
-                        params: { name, description, video }
+                        pathname: `/edit/[vid_id]`,
+                        params: { vid_id: name, name, description, video }
                     })}>
                     <Text>Edit Video Info</Text>
                 </CstmPressable>

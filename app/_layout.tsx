@@ -76,9 +76,10 @@ function RootLayoutNav() {
 
 
         }} />
+
+        <Stack.Screen name="details" options={{ headerShown: false, presentation: 'modal' }} />
+        <Stack.Screen name="edit" options={{ headerShown: false, presentation: 'modal' }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-        <Stack.Screen name="[detail]" options={{ title: "Details of Selected Video", presentation: 'modal' }} />
-        <Stack.Screen name="edit" options={{ title: "Metadata of Selected Video", presentation: 'modal' }} />
       </Stack>
     </ThemeProvider>
   );

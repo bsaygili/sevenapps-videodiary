@@ -3,6 +3,7 @@ import { Formik } from 'formik'
 import React from 'react'
 import * as Yup from 'yup'
 import { Text, View, TextInput, CstmPressable } from './Themed'
+import { StyleSheet, ScrollView } from 'react-native'
 
 const MetadataSchema = Yup.object().shape({
     name: Yup.string().required('Name is required').max(15, "Name can't be more than 15 characters"),
@@ -17,7 +18,7 @@ const FormInputs: React.FC<FormInputsProps> = ({ handleSubmit }) => {
     const { name, description } = useLocalSearchParams<{ name: string, description: string, video: string }>();
     return (
         <Formik
-            className='flex w-[600px]'
+            className='mt-5 mb-5'
             initialValues={{ name, description }}
             onSubmit={(values) => {
                 handleSubmit(values)
@@ -25,17 +26,17 @@ const FormInputs: React.FC<FormInputsProps> = ({ handleSubmit }) => {
         >
             {
                 ({ values, setValues }) => (
-                    <View className='flex w-[600px]'>
-                        <View className='py-4'>
+                    <View className='flex justify-between items-center align-middle p-[20px] mb-5'>
+                        <View style={{ marginVertical: 20, paddingHorizontal: 5 }} className='flex-row justify-center items-center align-middle px-1'>
                             <Text>Name: </Text>
-                            <TextInput defaultValue={values.name} onChangeText={val => setValues({ ...values, name: val })} inputMode="text" className="text-black dark:text-white  text-lg rounded-lg" placeholder='Please enter video name' />
+                            <TextInput style={styles.input} defaultValue={values.name} onChangeText={val => setValues({ ...values, name: val })} inputMode="text" placeholder='Please enter video name' />
                         </View>
-                        <View className='py-4'>
+                        <View style={{ marginVertical: 20, paddingHorizontal: 5 }} className='flex-row justify-center items-center align-middle px-1'>
                             <Text>Description: </Text>
-                            <TextInput defaultValue={values.description} onChangeText={val => setValues({ ...values, description: val })} inputMode="text" className="text-black dark:text-white focus:border-1 text-lg rounded-lg" placeholder='Please enter video name' />
+                            <TextInput style={styles.input} defaultValue={values.description} onChangeText={val => setValues({ ...values, description: val })} inputMode="text" placeholder='Please enter video name' />
                         </View>
-                        <View className="flex-1 items-center justify-center">
-                            <CstmPressable className="p-4 rounded-xl" type="submit">
+                        <View style={{ margin: 50 }} className="flex items-center justify-center self-center">
+                            <CstmPressable className="p-4 rounded-xl">
                                 <Text>Save Video Info</Text>
                             </CstmPressable>
                         </View>
@@ -47,3 +48,26 @@ const FormInputs: React.FC<FormInputsProps> = ({ handleSubmit }) => {
 }
 
 export default FormInputs
+
+const styles = StyleSheet.create({
+    inputContainer: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        verticalAlign: "middle",
+        marginHorizontal: 15
+    },
+    input: {
+        flex: 1,
+        height: 40,
+        borderColor: 'gray',
+        borderWidth: 1,
+        borderRadius: 5,
+        paddingHorizontal: 10,
+        marginVertical: 10,
+        fontSize: 16,
+    }
+
+
+})

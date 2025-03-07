@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList, StyleSheet, StatusBar, Dimensions, Pressable, Platform } from 'react-native';
+import { FlatList, StyleSheet, StatusBar, Dimensions, Pressable } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { router } from 'expo-router';
@@ -66,7 +66,7 @@ export default function HomeScreen() {
 
     type ItemProps = { name: string, description: string, url: string };
 
-    const customDimensions = Platform.OS === "ios" ? { width: width / 2, height: height / 7 } : { width: width / 5, height: height / 5 }
+    const customDimensions = { width: width / 2, height: height / 7 }
 
     const Item = ({ name, description, url }: ItemProps) => (
 
@@ -82,8 +82,8 @@ export default function HomeScreen() {
             </View>
             <View className='flex-wrap w-[160px]'>
                 <Pressable onPress={() => router.push({
-                    pathname: `/${name}`,
-                    params: { name, description, video: url }
+                    pathname: `/details/[vid_id]`,
+                    params: { vid_id: name, name, description, video: url }
                 })
                 }>
                     <Text className='py-4'>{name}</Text>

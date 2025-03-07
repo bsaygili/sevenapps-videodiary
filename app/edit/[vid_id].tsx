@@ -3,7 +3,8 @@ import { CstmPressable, Text } from '@/components/Themed';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import React from 'react'
-import { Dimensions, View } from 'react-native';
+import { Dimensions, ScrollView, StatusBar, StyleSheet, View } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export default function EditScreen() {
     const { height, width } = Dimensions.get("window");
@@ -12,7 +13,7 @@ export default function EditScreen() {
         player.play();
         player.muted = true;
     });
-    const { name, description, video } = useLocalSearchParams<{ name: string, description: string, video: string }>();
+    const { video } = useLocalSearchParams<{ name: string, description: string, video: string }>();
     const customDimensions = { width, height: height / 3 }
 
     const handleSubmit = (values: { name: string; description: string }) => {
@@ -20,7 +21,8 @@ export default function EditScreen() {
     }
 
     return (
-        <View className="flex-1">
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }} automaticallyAdjustKeyboardInsets>
+            <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 10 }}>Edit Video</Text>
             <View className="flex items-center justify-center">
                 {video && (
                     <View style={customDimensions}
@@ -35,12 +37,8 @@ export default function EditScreen() {
                         />
                     </View>
                 )}
-                <View className="flex p-10 items-start align-middle gap-2">
-                    <FormInputs handleSubmit={handleSubmit} />
-                </View>
             </View>
-
-        </View>
+            <FormInputs handleSubmit={handleSubmit} />
+        </ScrollView>
     )
 }
-

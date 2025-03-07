@@ -16,7 +16,6 @@ export default function CropScreen() {
 
     const { video } = useLocalSearchParams<{ video: string }>();
 
-    console.log('video', video)
     const router = useRouter();
 
     const handleNext = () => {
