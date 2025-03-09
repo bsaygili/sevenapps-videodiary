@@ -13,7 +13,7 @@ export default function DetailScreen() {
         player.muted = true;
     });
 
-    const { video, name, description } = useLocalSearchParams<{ name: string, description: string, video: string }>();
+    const { vid_id, video, name, description } = useLocalSearchParams<{ name: string, description: string, video: string, vid_id: string }>();
     const customDimensions = { width, height: height / 3 }
     return (
         <View className="flex-1">
@@ -40,7 +40,7 @@ export default function DetailScreen() {
                 <CstmPressable className="p-4 rounded-xl"
                     onPress={() => router.push({
                         pathname: `/edit/[vid_id]`,
-                        params: { vid_id: name, name, description, video }
+                        params: { vid_id, name, description, video }
                     })}>
                     <Text>Edit Video Info</Text>
                 </CstmPressable>

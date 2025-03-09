@@ -60,7 +60,7 @@ function RootLayoutNav() {
           // headerShown: false,
           title: 'Your Cropped Vidoes',
           headerRight: () => (
-            <Link href="/modal" asChild>
+            <Link href="/note" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
@@ -80,6 +80,7 @@ function RootLayoutNav() {
         <Stack.Screen name="details" options={{ headerShown: false, presentation: 'modal' }} />
         <Stack.Screen name="edit" options={{ headerShown: false, presentation: 'modal' }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="note" options={{ presentation: 'modal' }} />
       </Stack>
     </ThemeProvider>
   );

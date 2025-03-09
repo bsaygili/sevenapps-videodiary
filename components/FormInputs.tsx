@@ -12,14 +12,15 @@ const MetadataSchema = Yup.object().shape({
 
 interface FormInputsProps {
     handleSubmit: (values: { name: string; description: string }) => void;
+    name?: string;
+    description?: string;
 }
 
-const FormInputs: React.FC<FormInputsProps> = ({ handleSubmit }) => {
-    const { name, description } = useLocalSearchParams<{ name: string, description: string, video: string }>();
+const FormInputs: React.FC<FormInputsProps> = ({ handleSubmit, name, description }) => {
     return (
         <Formik
             className='mt-5 mb-5'
-            initialValues={{ name, description }}
+            initialValues={{ name: name || '', description: description || '' }}
             onSubmit={(values) => {
                 handleSubmit(values)
             }}
@@ -29,14 +30,14 @@ const FormInputs: React.FC<FormInputsProps> = ({ handleSubmit }) => {
                     <View className='flex justify-between items-center align-middle p-[20px] mb-5'>
                         <View style={{ marginVertical: 20, paddingHorizontal: 5 }} className='flex-row justify-center items-center align-middle px-1'>
                             <Text>Name: </Text>
-                            <TextInput style={styles.input} defaultValue={values.name} onChangeText={val => setValues({ ...values, name: val })} inputMode="text" placeholder='Please enter video name' />
+                            <TextInput style={styles.input} defaultValue={values.name} onChangeText={val => setValues({ ...values, name: val })} inputMode="text" placeholder="Name" />
                         </View>
                         <View style={{ marginVertical: 20, paddingHorizontal: 5 }} className='flex-row justify-center items-center align-middle px-1'>
                             <Text>Description: </Text>
-                            <TextInput style={styles.input} defaultValue={values.description} onChangeText={val => setValues({ ...values, description: val })} inputMode="text" placeholder='Please enter video name' />
+                            <TextInput style={styles.input} defaultValue={values.description} onChangeText={val => setValues({ ...values, description: val })} inputMode="text" placeholder="Description" />
                         </View>
                         <View style={{ margin: 50 }} className="flex items-center justify-center self-center">
-                            <CstmPressable className="p-4 rounded-xl">
+                            <CstmPressable className="p-4 rounded-xl" onPress={() => handleSubmit(values)}>
                                 <Text>Save Video Info</Text>
                             </CstmPressable>
                         </View>

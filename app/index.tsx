@@ -1,14 +1,17 @@
 import React from 'react'
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { FlatList, StyleSheet, StatusBar, Dimensions, Pressable } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { router } from 'expo-router';
 import { View, Text } from '@/components/Themed';
 import { MonoText } from '@/components/StyledText';
+import { useVideoStore } from '@/utils/store';
 
 
 export default function HomeScreen() {
 
+    const { videos, loadVideos, removeVideo } = useVideoStore();
     const { height, width } = Dimensions.get("screen");
     const player = (url: string) => useVideoPlayer(url, player => {
         player.loop = false;
@@ -16,78 +19,44 @@ export default function HomeScreen() {
         player.muted = true;
     });
 
-
-    const DATA = [
-        {
-            id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-            name: "BigBuckBunny",
-            description: "BigBuckBunny is a game",
-            uri: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
-        },
-        {
-            id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-            name: "ElephantsDream",
-            description: "ElephantsDream is a video",
-            uri: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'
-        },
-
-        {
-            id: '58694a0f-3da1-471f-bd96-145571e29d72',
-            name: "DesigningForGoogleCast",
-            description: "DesigningForGoogleCast is a Google Cast",
-            uri: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/DesigningForGoogleCast.mp4'
-        },
-        // {
-        //     id: '58694a0f-3da1-471f-bd96-145571e29d5451',
-        //     name: "Aybars-Okul",
-        //     description: "23 Nisan Gösterisi",
-        //     uri: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'
-        // },
-        // {
-        //     id: '58694a0f-3da1-471f-bd96-145571e29d5452',
-        //     name: "Aybars-Okul",
-        //     description: "23 Nisan Gösterisi",
-        //     uri: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'
-        // },
-        // {
-        //     id: '58694a0f-3da1-471f-bd96-145571e29d5455',
-        //     name: "Aybars-Okul",
-        //     description: "23 Nisan Gösterisi",
-        //     uri: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'
-        // },
-        // {
-        //     id: '58694a0f-3da1-471f-bd96-145571e29d54516',
-        //     name: "Aybars-Okul",
-        //     description: "23 Nisan Gösterisi Lorem10 asdşalsdjklşm lşkasjdlkş",
-        //     uri: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'
-        // },
-    ];
+    React.useEffect(() => {
+        loadVideos();
+    }, []);
 
 
-    type ItemProps = { name: string, description: string, url: string };
+    type ItemProps = { id: string, name: string, description: string, video: string };
 
     const customDimensions = { width: width / 2, height: height / 7 }
 
-    const Item = ({ name, description, url }: ItemProps) => (
+    const Item = ({ id, name, description, video }: ItemProps) => (
 
-        <View className='flex-row  items-center justify-items-start align-middle p-2 rounded-lg border-1 m-1 gap-2'>
+        <View className='flex-row items-center justify-between align-middle p-2 rounded-lg border-1 m-1 gap-2'>
             <View>
                 <VideoView
                     style={customDimensions}
-                    player={player(url)}
+                    player={player(video)}
                     allowsFullscreen
                     allowsPictureInPicture
                     contentFit="fill"
                 />
             </View>
-            <View className='flex-wrap w-[160px]'>
+            <View className='flex-1'>
                 <Pressable onPress={() => router.push({
                     pathname: `/details/[vid_id]`,
-                    params: { vid_id: name, name, description, video: url }
+                    params: { vid_id: id, name, description, video }
                 })
                 }>
                     <Text className='py-4'>{name}</Text>
                     <MonoText>{description}</MonoText>
+                </Pressable >
+            </View>
+            <View className='flex-wrap'>
+                <Pressable onPress={() => removeVideo(Number(id))}>
+                    <FontAwesome
+                        name="trash"
+                        size={25}
+                        color="red"
+                    />
                 </Pressable >
             </View>
         </View >
@@ -100,9 +69,11 @@ export default function HomeScreen() {
         <SafeAreaProvider>
             <SafeAreaView style={styles.container}>
                 <FlatList
-                    data={DATA}
-                    renderItem={({ item }) => <Item name={item.name} description={item.description} url={item.uri} />}
-                    keyExtractor={item => item.id}
+                    data={videos}
+                    renderItem={({ item }) => <Item id={item.id.toString()} name={item.name} description={item.description} video={item.video} />}
+                    keyExtractor={(item) => item.id.toString()}
+                    contentContainerStyle={{ padding: 10 }}
+                    ListEmptyComponent={() => <Text className='pt-4 m-auto'>No videos found</Text>}
                 />
             </SafeAreaView>
         </SafeAreaProvider>
