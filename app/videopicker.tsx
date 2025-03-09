@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Button, Image, View, StyleSheet, ActivityIndicator } from 'react-native';
+import { Button, Image, View, StyleSheet, ActivityIndicator, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { useEvent } from 'expo';
 import FormInputs from '@/components/FormInputs';
 import { useVideoStore } from '@/utils/store';
 import { router } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 
 export default function ImagePickerExample() {
     const [mediaPath, setMediaPath] = useState<string | null>(null);
@@ -59,6 +60,7 @@ export default function ImagePickerExample() {
     }
     return (
         <View style={styles.container}>
+            <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
             <Button title="Pick an image from camera roll" onPress={pickImage} />
             {!isNextOpen ? isLoading ?
                 <ActivityIndicator style={styles.activity} size="large" color="#007AFF" /> :

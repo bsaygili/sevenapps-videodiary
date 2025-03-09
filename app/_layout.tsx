@@ -13,6 +13,7 @@ import { useColorScheme } from '@/components/useColorScheme';
 import Colors from '@/constants/Colors';
 import "./global.css";
 import FloatButton from '@/components/FloatButton';
+import { StatusBar } from 'expo-status-bar';
 
 
 export {
@@ -56,18 +57,14 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <StatusBar style="auto" />
       <Stack>
         <Stack.Screen name="index" options={{
-          // headerShown: false,
           title: 'Your Cropped Vidoes',
         }} />
-
         <Stack.Screen name="details" options={{ headerShown: false, presentation: 'modal' }} />
         <Stack.Screen name="edit" options={{ headerShown: false, presentation: 'modal' }} />
-        {/* <Stack.Screen name="modal" options={{ presentation: 'modal' }} /> */}
-        {/* <Stack.Screen name="note" options={{ presentation: 'modal' }} /> */}
         <Stack.Screen name="picker" options={{ presentation: 'modal' }} />
-        {/* <Stack.Screen name="videopicker_copy" options={{ presentation: 'modal' }} /> */}
       </Stack>
 
     </ThemeProvider>
