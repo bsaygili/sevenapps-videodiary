@@ -29,11 +29,11 @@ const FormInputs: React.FC<FormInputsProps> = ({ handleSubmit, name, description
                 ({ values, setValues }) => (
                     <View className='flex justify-between items-center align-middle p-[20px] mb-5'>
                         <View style={{ marginVertical: 20, paddingHorizontal: 5 }} className='flex-row justify-center items-center align-middle px-1'>
-                            <Text>Name: </Text>
+                            {/* <Text>Name: </Text> */}
                             <TextInput style={styles.input} defaultValue={values.name} onChangeText={val => setValues({ ...values, name: val })} inputMode="text" placeholder="Name" />
                         </View>
-                        <View style={{ marginVertical: 20, paddingHorizontal: 5 }} className='flex-row justify-center items-center align-middle px-1'>
-                            <Text>Description: </Text>
+                        <View style={{ marginVertical: 10, paddingHorizontal: 5 }} className='flex-row justify-center items-center align-middle px-1'>
+                            {/* <Text>Description: </Text> */}
                             <TextInput style={styles.input} defaultValue={values.description} onChangeText={val => setValues({ ...values, description: val })} inputMode="text" placeholder="Description" />
                         </View>
                         <View style={{ margin: 50 }} className="flex items-center justify-center self-center">

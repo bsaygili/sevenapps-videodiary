@@ -12,6 +12,7 @@ import { useColorScheme } from '@/components/useColorScheme';
 
 import Colors from '@/constants/Colors';
 import "./global.css";
+import FloatButton from '@/components/FloatButton';
 
 
 export {
@@ -59,29 +60,16 @@ function RootLayoutNav() {
         <Stack.Screen name="index" options={{
           // headerShown: false,
           title: 'Your Cropped Vidoes',
-          headerRight: () => (
-            <Link href="/note" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="crop"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
-
-
         }} />
 
         <Stack.Screen name="details" options={{ headerShown: false, presentation: 'modal' }} />
         <Stack.Screen name="edit" options={{ headerShown: false, presentation: 'modal' }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-        <Stack.Screen name="note" options={{ presentation: 'modal' }} />
+        {/* <Stack.Screen name="modal" options={{ presentation: 'modal' }} /> */}
+        {/* <Stack.Screen name="note" options={{ presentation: 'modal' }} /> */}
+        <Stack.Screen name="picker" options={{ presentation: 'modal' }} />
+        {/* <Stack.Screen name="videopicker_copy" options={{ presentation: 'modal' }} /> */}
       </Stack>
+
     </ThemeProvider>
   );
 }

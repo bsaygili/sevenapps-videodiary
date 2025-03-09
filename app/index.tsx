@@ -7,6 +7,8 @@ import { router } from 'expo-router';
 import { View, Text } from '@/components/Themed';
 import { MonoText } from '@/components/StyledText';
 import { useVideoStore } from '@/utils/store';
+import { VideoType } from '@/constants/types';
+import FloatButton from '@/components/FloatButton';
 
 
 export default function HomeScreen() {
@@ -24,11 +26,9 @@ export default function HomeScreen() {
     }, []);
 
 
-    type ItemProps = { id: string, name: string, description: string, video: string };
-
     const customDimensions = { width: width / 2, height: height / 7 }
 
-    const Item = ({ id, name, description, video }: ItemProps) => (
+    const Item = ({ id, name, description, video }: VideoType) => (
 
         <View className='flex-row items-center justify-between align-middle p-2 rounded-lg border-1 m-1 gap-2'>
             <View>
@@ -43,7 +43,7 @@ export default function HomeScreen() {
             <View className='flex-1'>
                 <Pressable onPress={() => router.push({
                     pathname: `/details/[vid_id]`,
-                    params: { vid_id: id, name, description, video }
+                    params: { vid_id: Number(id), name, description, video }
                 })
                 }>
                     <Text className='py-4'>{name}</Text>
@@ -70,12 +70,14 @@ export default function HomeScreen() {
             <SafeAreaView style={styles.container}>
                 <FlatList
                     data={videos}
-                    renderItem={({ item }) => <Item id={item.id.toString()} name={item.name} description={item.description} video={item.video} />}
-                    keyExtractor={(item) => item.id.toString()}
-                    contentContainerStyle={{ padding: 10 }}
+                    renderItem={({ item }) => <Item id={item.id} name={item.name} description={item.description} video={item.video} />}
+                    keyExtractor={(item) => item?.id?.toString() || item.video}
+                    contentContainerStyle={{ padding: 8 }}
                     ListEmptyComponent={() => <Text className='pt-4 m-auto'>No videos found</Text>}
+                    testID='video-list'
                 />
             </SafeAreaView>
+            <FloatButton />
         </SafeAreaProvider>
     )
 }

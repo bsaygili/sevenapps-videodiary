@@ -1592,6 +1592,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ffmpeg/util@npm:^0.12.2":
+  version: 0.12.2
+  resolution: "@ffmpeg/util@npm:0.12.2"
+  checksum: 95440dab00f373df1ad421583a1acdbb79b06ad544f5a4e26c2406858b9d0b0068dff6109ca0134d60ce21fa2883d6497fbd6e47f66bd92b4d7da2468c9391d3
+  languageName: node
+  linkType: hard
+
 "@isaacs/cliui@npm:^8.0.2":
   version: 8.0.2
   resolution: "@isaacs/cliui@npm:8.0.2"
@@ -4843,6 +4850,15 @@ __metadata:
     expo: "*"
     react-native: "*"
   checksum: 6b7d8536f7dd2a9531ccc1ee946a8cade67fa3a74e44d0bfb70f8098694e0e49a0d981d33760668d4d5475bf6bbf685024f9b2b9c19c9be47f17781aac53b28d
+  languageName: node
+  linkType: hard
+
+"expo-document-picker@npm:~13.0.3":
+  version: 13.0.3
+  resolution: "expo-document-picker@npm:13.0.3"
+  peerDependencies:
+    expo: "*"
+  checksum: 26263753c4a6d91da705e578804d97809087e6251a03395b4f3d5e0c9230ebba020d413996f0aacb23afff1ad42f2cbc784f0d085bbc4e034418e09a7839c56d
   languageName: node
   linkType: hard
 
@@ -8999,6 +9015,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-video-trim@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "react-native-video-trim@npm:3.0.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: d18b8200e755e3a73735fc440d3cc9d4069f095594cc5d56717ef2a536a39f0c701b3e3ba2df89299fc374153b9799e98ba118379ab15785c69af5377c0b1632
+  languageName: node
+  linkType: hard
+
 "react-native-web@npm:~0.19.13":
   version: 0.19.13
   resolution: "react-native-web@npm:0.19.13"
@@ -10840,12 +10866,14 @@ __metadata:
     "@babel/core": ^7.25.2
     "@expo/vector-icons": ^14.0.2
     "@ffmpeg/ffmpeg": ^0.12.15
+    "@ffmpeg/util": ^0.12.2
     "@react-native-community/slider": 4.5.5
     "@react-navigation/native": ^7.0.14
     "@types/react": ~18.3.12
     "@types/react-native": ^0.73.0
     expo: ~52.0.37
     expo-av: ~15.0.2
+    expo-document-picker: ~13.0.3
     expo-font: ~13.0.4
     expo-image-picker: ~16.0.6
     expo-linking: ~7.0.5
@@ -10866,6 +10894,7 @@ __metadata:
     react-native-reanimated: 3.16.2
     react-native-safe-area-context: 4.12.0
     react-native-screens: ~4.4.0
+    react-native-video-trim: ^3.0.0
     react-native-web: ~0.19.13
     react-test-renderer: 18.3.1
     tailwindcss: ^3.4.17
