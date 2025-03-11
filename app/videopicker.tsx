@@ -1,17 +1,22 @@
 import { useState } from 'react';
-import { Button, Image, View, StyleSheet, ActivityIndicator, Platform } from 'react-native';
+import { Button, View, StyleSheet, ActivityIndicator } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { useEvent } from 'expo';
 import FormInputs from '@/components/FormInputs';
 import { useVideoStore } from '@/utils/store';
 import { router } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { Toast } from 'toastify-react-native';
+
+
+
 
 export default function ImagePickerExample() {
     const [mediaPath, setMediaPath] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isNextOpen, setNextIsOpen] = useState<boolean>(false);
+
 
     const { addVideo } = useVideoStore();
 
@@ -30,7 +35,6 @@ export default function ImagePickerExample() {
     const pickImage = async () => {
         setIsLoading(true);
         if (isPlaying) { setMediaPath(null); }
-        // No permissions request is necessary for launching the image library
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ['videos'],
             allowsEditing: true,
@@ -40,8 +44,6 @@ export default function ImagePickerExample() {
         setIsLoading(false);
         if (!result.canceled) {
             setMediaPath(result.assets[0].uri);
-
-
         }
     };
     const next = () => {
@@ -53,35 +55,47 @@ export default function ImagePickerExample() {
 
     const handleSubmit = (values: { name: string; description: string }) => {
         if (mediaPath) {
-            addVideo(values.name, values.description, mediaPath.toString()).then(() => router.dismissTo("/"));
+            addVideo(values.name, values.description, mediaPath.toString()).then(() => {
+                Toast.success("Memory created!")
+                router.dismissTo("/")
+            });
         } else {
             console.error('Media path is undefined');
         }
     }
+
     return (
-        <View style={styles.container}>
-            <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-            <Button title="Pick an image from camera roll" onPress={pickImage} />
-            {!isNextOpen ? isLoading ?
-                <ActivityIndicator style={styles.activity} size="large" color="#007AFF" /> :
-                mediaPath && <>
-                    <View style={styles.contentContainer}>
-                        <VideoView style={styles.video} player={player} allowsFullscreen allowsPictureInPicture />
-                    </View>
-                    <Button title="Next" onPress={next} />
-                </>
-                :
-                <FormInputs handleSubmit={handleSubmit} />
-            }
-        </View>
+        <SafeAreaProvider>
+            <SafeAreaView>
+                <View style={styles.container}>
+                    <Button title="Pick an video from phone" onPress={pickImage} />
+                    {!isNextOpen ? isLoading ?
+                        <ActivityIndicator style={styles.activity} size="large" color="#007AFF" /> :
+                        mediaPath && <>
+                            <View style={styles.contentContainer}>
+                                <VideoView style={styles.video} player={player} allowsFullscreen allowsPictureInPicture />
+                            </View>
+                            <Button title="Next" onPress={next} />
+                        </>
+                        :
+                        <FormInputs handleSubmit={handleSubmit} />
+                    }
+                </View>
+            </SafeAreaView>
+        </SafeAreaProvider>
+
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        marginVertical: 40,
+        display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
+        alignContent: 'center',
+        height: '80%',
     },
     contentContainer: {
         width: '100%',
@@ -94,7 +108,7 @@ const styles = StyleSheet.create({
     },
     video: {
         width: '100%',
-        height: 450,
+        height: 250,
     },
     controlsContainer: {
         padding: 10,
@@ -104,5 +118,5 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
 });

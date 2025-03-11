@@ -18,7 +18,7 @@ export default function EditLayOutNav() {
     return (
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
             <Stack>
-                <Stack.Screen name="[vid_id]" options={{ title: "Edit Metadata of Video", presentation: 'modal' }} />
+                <Stack.Screen name="[vid_id]" options={{ title: "Edit Metadata of Memory", presentation: 'modal' }} />
             </Stack>
         </ThemeProvider>
     );

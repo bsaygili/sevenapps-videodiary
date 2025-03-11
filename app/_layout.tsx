@@ -6,15 +6,12 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
-import { Link, Tabs } from 'expo-router';
-import { Pressable, Text } from 'react-native';
+import { Platform } from 'react-native';
 import { useColorScheme } from '@/components/useColorScheme';
-
-import Colors from '@/constants/Colors';
-import "./global.css";
-import FloatButton from '@/components/FloatButton';
 import { StatusBar } from 'expo-status-bar';
+import ToastManager, { Toast } from "toastify-react-native";
 
+import "./global.css";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -28,6 +25,7 @@ export const unstable_settings = {
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -57,16 +55,26 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <StatusBar style="auto" />
+      <ToastManager position="top" showCloseIcon={false} />
+      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
       <Stack>
-        <Stack.Screen name="index" options={{
-          title: 'Your Cropped Vidoes',
-        }} />
+        <Stack.Screen
+          name="index"
+          options={{
+            title: 'Memories',
+            headerTitleStyle: {
+              fontFamily: 'SpaceMono',
+            },
+            headerBackTitleStyle: {
+              fontFamily: 'SpaceMono',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
         <Stack.Screen name="details" options={{ headerShown: false, presentation: 'modal' }} />
         <Stack.Screen name="edit" options={{ headerShown: false, presentation: 'modal' }} />
-        <Stack.Screen name="picker" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="videopicker" options={{ title: "Pick a Video", headerTitleAlign: 'center', presentation: "modal" }} />
       </Stack>
-
     </ThemeProvider>
   );
 }

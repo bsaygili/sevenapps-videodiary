@@ -18,13 +18,11 @@ const FloatButton = () => {
         <View style={styles.container}>
             <Link href="/videopicker" asChild>
                 <Pressable style={styles.plusBtn}>
-                    {({ pressed }) => (
-                        <FontAwesome
-                            name="crop"
-                            size={25}
-                            color={Colors[colorScheme ?? 'light'].text}
-                        />
-                    )}
+                    <FontAwesome
+                        name="crop"
+                        size={25}
+                        color={Colors[colorScheme ?? 'light'].text}
+                    />
                 </Pressable>
             </Link>
         </View >
@@ -38,6 +36,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 50,
         right: 30,
+        borderRadius: "50%",
     },
     plusBtn: {
         width: 60,

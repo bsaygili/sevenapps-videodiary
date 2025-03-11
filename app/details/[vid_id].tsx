@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Dimensions, Platform, Pressable } from "react-native";
+import { Dimensions } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { useVideoPlayer, VideoView } from "expo-video";
 import { CstmPressable, Text, View } from "@/components/Themed";
@@ -15,6 +14,7 @@ export default function DetailScreen() {
 
     const { vid_id, video, name, description } = useLocalSearchParams<{ name: string, description: string, video: string, vid_id: string }>();
     const customDimensions = { width, height: height / 3 }
+
     return (
         <View className="flex-1">
             <View className="flex items-center justify-center">

@@ -4,6 +4,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import React from 'react'
 import { Dimensions, ScrollView, View } from 'react-native';
+import { Toast } from "toastify-react-native";
 
 export default function EditScreen() {
 
@@ -19,7 +20,10 @@ export default function EditScreen() {
 
 
     const handleSubmit = (values: { name: string; description: string }) => {
-        updateVideo(vid_id, values.name, values.description, video).then(() => router.dismissTo("/"))
+        updateVideo(vid_id, values.name, values.description, video).then(() => {
+            Toast.success("Memory updated!")
+            router.dismissTo("/")
+        })
     }
 
     return (

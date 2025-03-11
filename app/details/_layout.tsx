@@ -4,13 +4,6 @@ import { Stack } from 'expo-router';
 import 'react-native-reanimated';
 import { useColorScheme } from '@/components/useColorScheme';
 
-export {
-    ErrorBoundary,
-} from 'expo-router';
-
-export const unstable_settings = {
-    initialRouteName: 'index',
-};
 
 export default function DetailLayOutNav() {
     const colorScheme = useColorScheme();
@@ -18,7 +11,7 @@ export default function DetailLayOutNav() {
     return (
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
             <Stack>
-                <Stack.Screen name="[vid_id]" options={{ title: "Details of Selected Video", presentation: 'modal' }} />
+                <Stack.Screen name="[vid_id]" options={{ title: "Details of Selected Memory", presentation: 'modal' }} />
             </Stack>
         </ThemeProvider>
     );

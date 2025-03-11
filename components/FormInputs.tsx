@@ -4,6 +4,7 @@ import React from 'react'
 import * as Yup from 'yup'
 import { Text, View, TextInput, CstmPressable } from './Themed'
 import { StyleSheet, ScrollView } from 'react-native'
+import Colors from '@/constants/Colors'
 
 const MetadataSchema = Yup.object().shape({
     name: Yup.string().required('Name is required').max(15, "Name can't be more than 15 characters"),
@@ -27,7 +28,7 @@ const FormInputs: React.FC<FormInputsProps> = ({ handleSubmit, name, description
         >
             {
                 ({ values, setValues }) => (
-                    <View className='flex justify-between items-center align-middle p-[20px] mb-5'>
+                    <View darkColor={Colors.dark.background} lightColor={Colors.light.background} className='flex justify-between items-center align-middle p-[20px] mb-5'>
                         <View style={{ marginVertical: 20, paddingHorizontal: 5 }} className='flex-row justify-center items-center align-middle px-1'>
                             {/* <Text>Name: </Text> */}
                             <TextInput style={styles.input} defaultValue={values.name} onChangeText={val => setValues({ ...values, name: val })} inputMode="text" placeholder="Name" />

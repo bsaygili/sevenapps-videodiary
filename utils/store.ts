@@ -5,7 +5,7 @@ import { VideoType } from '@/constants/types';
 
 type VideoStore = {
     videos: VideoType[];
-    loadVideos: () => Promise<void>;
+    loadVideos: (name?: string) => Promise<void>;
     addVideo: (name: string, description: string, video: string) => Promise<void>;
     updateVideo: (id: string, name: string, description: string, video: string) => Promise<void>;
     removeVideo: (id: number) => Promise<void>;
@@ -17,8 +17,8 @@ initDatabase();
 export const useVideoStore = create<VideoStore>((set) => ({
     videos: [],
 
-    loadVideos: async () => {
-        const data = await fetchVideos() as VideoType[];
+    loadVideos: async (name) => {
+        const data = await fetchVideos(name) as VideoType[];
         set({ videos: data });
     },
 

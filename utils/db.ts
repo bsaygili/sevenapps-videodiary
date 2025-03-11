@@ -31,9 +31,9 @@ export const updateById = async (id: string, name: string, description: string, 
     await db!.runAsync('UPDATE videos SET name = ?, description = ?, video = ? WHERE id = ?', [name, description, video, id]);
 };
 
-export const fetchVideos = async () => {
+export const fetchVideos = async (name?: string) => {
     if (!db) await initDatabase();
-    return await db!.getAllAsync('SELECT * FROM videos');
+    return await db!.getAllAsync('SELECT * FROM videos WHERE name LIKE ?', [name || '%']);
 };
 
 export const deleteVideo = async (id: number) => {

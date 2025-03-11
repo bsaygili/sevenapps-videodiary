@@ -4,7 +4,7 @@ import { FlatList, StyleSheet, StatusBar, Dimensions, Pressable } from 'react-na
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { router } from 'expo-router';
-import { View, Text } from '@/components/Themed';
+import { View, Text, TextInput } from '@/components/Themed';
 import { MonoText } from '@/components/StyledText';
 import { useVideoStore } from '@/utils/store';
 import { VideoType } from '@/constants/types';
@@ -68,6 +68,15 @@ export default function HomeScreen() {
     return (
         <SafeAreaProvider>
             <SafeAreaView style={styles.container}>
+                <TextInput defaultValue='' placeholder='Search' style={{
+                    padding: 10,
+                    margin: 10,
+                    borderColor: 'gray',
+                    borderWidth: 1,
+                    borderRadius: 5
+                }}
+                    onChangeText={(text) => { loadVideos(text) }}
+                />
                 <FlatList
                     data={videos}
                     renderItem={({ item }) => <Item id={item.id} name={item.name} description={item.description} video={item.video} />}
